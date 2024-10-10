@@ -4,7 +4,6 @@ import com.todaysplot.springboot.service.posts.PostsService;
 import com.todaysplot.springboot.web.dto.PostsResponseDto;
 import com.todaysplot.springboot.web.dto.PostsSaveRequestDto;
 import com.todaysplot.springboot.web.dto.PostsUpdateRequestDto;
-import jakarta.persistence.PostUpdate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,5 +26,11 @@ public class PostsApiController {
     @GetMapping("/api/v1/posts/{id}")
     public PostsResponseDto findById (@PathVariable Long id){
         return postsService.findById(id);
+    }
+
+    @DeleteMapping("/api/v1/posts/{id}")
+    public Long delete(@PathVariable Long id) {
+        postsService.delete(id);
+        return id;
     }
 }
