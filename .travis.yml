@@ -17,6 +17,23 @@ cache:
 
 script: "./gradlew clean build"
 
+# CodeDeploy jar 파일 인식하지 못함. jar+기타 파일을 zip 압축
+before_deploy:
+  - zip -r todays_plot *
+  - mkdir -p deploy
+  - mv todays_plot.zip deploy/todays_plot.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: todays-plot-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private # zip 파일 접근을 private
+    local_dir: deploy # before_deploy에서 생성한 디렉토리의 내용을 s3로 전송
+    wait-until-deployed: true
+
 # CI 실행 완료 시 메일로 알람
 notifications:
   email:
