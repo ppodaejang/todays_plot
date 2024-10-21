@@ -33,6 +33,8 @@ deploy:
     acl: private # zip 파일 접근을 private
     local_dir: deploy # before_deploy에서 생성한 디렉토리의 내용을 s3로 전송
     wait-until-deployed: true
+    on:
+      branch: main  # main 브랜치에서만 배포하도록 설정
 
 # CI 실행 완료 시 메일로 알람
 notifications:
