@@ -47,6 +47,11 @@ jobs:
       - name: Upload to S3
         run: aws s3 cp deploy/todays_plot.zip s3://todays-plot-build/todays_plot.zip
 
-      # S3 업로드 성공 여부 확인
-      - name: Verify S3 upload
-        run: aws s3 ls s3://todays-plot-build/ | grep todays_plot.zip
+      # CodeDeploy에 배포 트리거
+      - name: Deploy to CodeDeploy
+        run: |
+          aws deploy create-deployment \
+            --application-name todays-plot \
+            --deployment-group-name todays-plot-group \
+            --deployment-config-name CodeDeployDefault.AllAtOnce \
+            --s3-location bucket=todays-plot-build,key=todays_plot.zip,bundleType=zip
