@@ -56,7 +56,7 @@ jobs:
 
       # S3에 zip 파일 업로드
       - name: Upload to S3
-        run: aws s3 cp deploy/todays_plot.zip s3://todays-plot-build/todays_plot.zip
+        run: aws s3 cp deploy/todays-plot.zip s3://todays-plot-build/todays-plot.zip
 
       # CodeDeploy에 배포 트리거
       - name: Deploy to CodeDeploy
@@ -65,4 +65,4 @@ jobs:
             --application-name todays-plot \
             --deployment-group-name todays-plot-group \
             --deployment-config-name CodeDeployDefault.AllAtOnce \
-            --s3-location bucket=todays-plot-build,key=todays_plot.zip,bundleType=zip
+            --s3-location bucket=todays-plot-build,key=todays-plot.zip,bundleType=zip
