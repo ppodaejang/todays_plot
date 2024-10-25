@@ -28,12 +28,23 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      # 빌드 결과를 zip으로 압축
-      - name: Zip build files
+      # 빌드 결과를 zip으로 압축 - 모든파일을 압축
+#      - name: Zip build files
+#        run: |
+#          zip -r todays_plot *
+#          mkdir -p deploy
+#          mv todays_plot.zip deploy/todays_plot.zip
+
+      # 필요한 파일들만 zip으로 압축
+      - name: Prepare files for deployment
         run: |
-          zip -r todays_plot *
-          mkdir -p deploy
-          mv todays_plot.zip deploy/todays_plot.zip
+          mkdir -p before-deploy
+          cp scripts/*.sh before-deploy/
+          cp appspec.yml before-deploy/
+          cp build/libs/*.jar before-deploy/
+          cd before-deploy && zip -r before-deploy.zip *
+          cd ../ && mkdir -p deploy
+          mv before-deploy/before-deploy.zip deploy/todays-plot.zip
 
       # AWS CLI 설정 (S3와 CodeDeploy에 필요)
       - name: Configure AWS credentials
