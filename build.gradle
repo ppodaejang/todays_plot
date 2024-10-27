@@ -7,10 +7,10 @@ plugins {
 group = 'com.todaysplot'
 version = '0.0.1-SNAPSHOT'
 
-jar {
-	archiveBaseName.set("todays-plot") // 프로젝트 이름
-	archiveVersion.set("0.0.1") // 버전
-}
+//jar {
+//	archiveBaseName.set("todays-plot") // 프로젝트 이름
+//	archiveVersion.set("0.0.1") // 버전
+//}
 
 java {
 	toolchain {
