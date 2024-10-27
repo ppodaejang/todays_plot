@@ -22,7 +22,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화
                 .headers(headers -> headers.frameOptions(frame -> frame.disable())) // H2-console 사용을 위해 Frame 옵션 비활성화
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/", "/css/**", "/images/**", "/js/**", "h2-console/**").permitAll()
+                        .requestMatchers("/", "/css/**", "/images/**", "/js/**", "h2-console/**", "/profile").permitAll()
                         .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
                         .anyRequest().authenticated()
                 );
